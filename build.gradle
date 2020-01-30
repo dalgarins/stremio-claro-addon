@@ -31,6 +31,11 @@ dependencies {
     implementation "io.micronaut:micronaut-http-server-netty"
     implementation "io.micronaut:micronaut-http-client"
 
+    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+    implementation "com.squareup.okhttp3:logging-interceptor:3.9.+"
+    implementation 'com.google.code.gson:gson:2.8.6'
+
     compile project(":data")
     compile project(":domain")
 

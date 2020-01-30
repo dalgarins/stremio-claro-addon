@@ -3,6 +3,6 @@ micronaut:
     name: stremio-plugin-claro
 
 claro:
-  url_config: "https://www.clarovideo.com/api/config"
+  url_config: "https://www.clarovideo.com"
   url_apa: "https://apa-api-web.clarovideo.net"
   url_mfwk_api: "https://mfwkweb-api.clarovideo.net"
