@@ -1,13 +1,15 @@
 package co.anbora.labs.claro.data.remote.model.login;
 
+import co.anbora.labs.claro.data.remote.model.requests.EntryRequestDTO;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
-import lombok.Setter;
 
 @Data
 public class StartHeaderInfoDTO {
 
-    @Setter
+    @SerializedName("entry")
+    private EntryRequestDTO entry;
+
     @SerializedName("response")
     private Response response;
 
