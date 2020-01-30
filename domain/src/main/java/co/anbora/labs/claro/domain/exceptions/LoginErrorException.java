@@ -1,4 +1,4 @@
 package co.anbora.labs.claro.domain.exceptions;
 
-public class LoginErrorException {
+public class LoginErrorException extends RuntimeException {
 }
