@@ -11,10 +11,12 @@ import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Property;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import javax.inject.Singleton;
+
+import static co.anbora.labs.claro.injection.UntrustedSSLClient.getUnsafeOkHttpClient;
 
 @Factory
 public class NetworkModule {
@@ -29,13 +31,12 @@ public class NetworkModule {
     @ConfigApi
     @Singleton
     Retrofit provideRetrofitConfig(@Property(name = "claro.url_config") String urlConfig) {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor())
-                .build();
+        OkHttpClient okHttpClient = getUnsafeOkHttpClient();
 
         return new Retrofit.Builder()
                 .baseUrl(urlConfig)
                 .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 
@@ -48,14 +49,13 @@ public class NetworkModule {
     @Bean
     @WebApi
     @Singleton
-    Retrofit provideRetrofitApiApi(@Property(name = "claro.url_apa") String urlApa) {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor())
-                .build();
+    Retrofit provideRetrofitApaApi(@Property(name = "claro.url_apa") String urlApa) {
+        OkHttpClient okHttpClient = getUnsafeOkHttpClient();
 
         return new Retrofit.Builder()
                 .baseUrl(urlApa)
                 .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 
@@ -69,13 +69,14 @@ public class NetworkModule {
     @Auth
     @Singleton
     Retrofit provideRetrofitWithAuth(@Property(name = "claro.url_mfwk_api") String urlMFWK, AuthInterceptor authInterceptor) {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor())
+        OkHttpClient okHttpClient = getUnsafeOkHttpClient()
+                .newBuilder()
                 .addInterceptor(authInterceptor)
                 .build();
 
         return new Retrofit.Builder()
                 .baseUrl(urlMFWK)
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
     }
