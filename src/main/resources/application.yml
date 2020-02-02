@@ -15,5 +15,10 @@ datasources:
     username: sa
     password: ""
     driverClassName: org.h2.Driver
+---
+flyway:
+  datasources:
+    default:
+      locations: classpath:databasemigrations
 
 

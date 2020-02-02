@@ -31,9 +31,15 @@ dependencies {
     implementation "io.micronaut:micronaut-http-server-netty"
     implementation "io.micronaut:micronaut-http-client"
 
+    //tag::mybatis[]
     implementation 'org.mybatis:mybatis:3.4.6'
     implementation "io.micronaut.configuration:micronaut-jdbc-hikari"
     runtime "com.h2database:h2:1.4.196"
+    //end::mybatis[]
+
+    //tag::flyway[]
+    implementation 'io.micronaut.configuration:micronaut-flyway'
+    //end::flyway[]
 
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
