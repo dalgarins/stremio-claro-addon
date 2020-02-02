@@ -3,6 +3,8 @@ package co.anbora.labs.claro.injection;
 import co.anbora.labs.claro.data.remote.ClaroVideoRepositoryImpl;
 import co.anbora.labs.claro.data.remote.api.rest.ClaroMFWKWebApi;
 import co.anbora.labs.claro.data.remote.mapper.LoginDTOMapper;
+import co.anbora.labs.claro.data.repository.dao.token.TokenDao;
+import co.anbora.labs.claro.data.repository.mapper.LoginVOMapper;
 import co.anbora.labs.claro.domain.model.claro.Credential;
 import co.anbora.labs.claro.domain.repository.IClaroVideoRepository;
 import io.micronaut.context.annotation.Bean;
@@ -15,13 +17,23 @@ public class DataModule {
 
     @Bean
     @Singleton
-    LoginDTOMapper provideLoginToTokenMapper() {
+    LoginDTOMapper provideDBTokenMapper() {
         return new LoginDTOMapper();
     }
 
     @Bean
-    IClaroVideoRepository provideRemoteRepository(Credential credential, LoginDTOMapper loginDTOMapper, ClaroMFWKWebApi loginApi) {
-        return new ClaroVideoRepositoryImpl(credential, loginDTOMapper, loginApi);
+    @Singleton
+    LoginVOMapper provideTokenMapper() {
+        return new LoginVOMapper();
+    }
+
+    @Bean
+    IClaroVideoRepository provideRemoteRepository(Credential credential,
+                                                  LoginDTOMapper dbTokenMapper,
+                                                  LoginVOMapper tokenMapper,
+                                                  ClaroMFWKWebApi loginApi,
+                                                  TokenDao tokenDao) {
+        return new ClaroVideoRepositoryImpl(credential, dbTokenMapper, tokenMapper, loginApi, tokenDao);
     }
 
 

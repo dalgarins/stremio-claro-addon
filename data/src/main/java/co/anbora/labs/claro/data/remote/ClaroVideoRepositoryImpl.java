@@ -2,6 +2,8 @@ package co.anbora.labs.claro.data.remote;
 
 import co.anbora.labs.claro.data.remote.api.rest.ClaroMFWKWebApi;
 import co.anbora.labs.claro.data.remote.model.login.LoginDTO;
+import co.anbora.labs.claro.data.repository.dao.token.TokenDao;
+import co.anbora.labs.claro.data.repository.model.LoginTokenVO;
 import co.anbora.labs.claro.domain.exceptions.LoginErrorException;
 import co.anbora.labs.claro.domain.model.claro.Credential;
 import co.anbora.labs.claro.domain.model.claro.LoginToken;
@@ -16,21 +18,29 @@ public class ClaroVideoRepositoryImpl implements IClaroVideoRepository {
 
     private Credential claroCredential;
     private ClaroMFWKWebApi claroWebApi;
-    private Function<LoginDTO, LoginToken> tokenMapper;
+    private Function<LoginDTO, LoginTokenVO> dbTokenMapper;
+    private Function<LoginTokenVO, LoginToken> tokenMapper;
+    private TokenDao tokenDao;
 
     public ClaroVideoRepositoryImpl(Credential claroCredential,
-                                    Function<LoginDTO, LoginToken> tokenMapper,
-                                    ClaroMFWKWebApi claroWebApi) {
+                                    Function<LoginDTO, LoginTokenVO> dbTokenMapper,
+                                    Function<LoginTokenVO, LoginToken> tokenMapper,
+                                    ClaroMFWKWebApi claroWebApi,
+                                    TokenDao tokenDao) {
         this.claroCredential = claroCredential;
+        this.dbTokenMapper = dbTokenMapper;
         this.tokenMapper = tokenMapper;
         this.claroWebApi = claroWebApi;
+        this.tokenDao = tokenDao;
     }
 
     @Override
     public LoginToken login() {
-        return this.tokenMapper.apply(
+        LoginTokenVO tokenVO = this.dbTokenMapper.apply(
                 loginUser().orElseThrow(LoginErrorException::new)
         );
+        tokenDao.insert(tokenVO);
+        return this.tokenMapper.apply(tokenVO);
     }
 
     private Optional<LoginDTO> loginUser() {
