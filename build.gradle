@@ -34,7 +34,7 @@ dependencies {
     //tag::mybatis[]
     implementation 'org.mybatis:mybatis:3.4.6'
     implementation "io.micronaut.configuration:micronaut-jdbc-hikari"
-    runtime "com.h2database:h2:1.4.196"
+    runtime "com.h2database:h2:1.4.199"
     //end::mybatis[]
 
     //tag::flyway[]
