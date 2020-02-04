@@ -7,13 +7,13 @@ import org.apache.ibatis.annotations.Select;
 
 public interface TokenDao {
 
-    @Insert("insert into login_token "
-            + "values(#{token.id}, #{token.userId}, #{token.userName}, #{token.userToken}, "
+    @Insert("merge into login_token key (user_id) "
+            + "values(#{token.userId}, #{token.userName}, #{token.userToken}, "
             + "#{token.userSession}, #{token.authPN}, #{token.authPT}, "
-            + "#{token.HKS}, #{token.apiVersion}, #{token.active})")
+            + "#{token.HKS}, #{token.apiVersion})")
     void insert(@Param("token") LoginTokenVO tokenVO);
 
-    @Select("select * from login_token where active=true limit 1")
+    @Select("select * from login_token limit 1")
     LoginTokenVO findLastToken();
 
 }
