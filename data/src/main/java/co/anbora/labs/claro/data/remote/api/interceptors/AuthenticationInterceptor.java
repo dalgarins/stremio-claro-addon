@@ -14,6 +14,8 @@ import okhttp3.Response;
 import java.io.IOException;
 import java.util.Optional;
 
+import static co.anbora.labs.claro.domain.constants.AuthConstants.*;
+
 public class AuthenticationInterceptor implements Interceptor {
 
     private ClaroColombiaConfigApi claroColombiaConfigApi;
@@ -57,11 +59,11 @@ public class AuthenticationInterceptor implements Interceptor {
         HttpUrl originalHttpUrl = original.url();
 
         HttpUrl url = originalHttpUrl.newBuilder()
-                .addQueryParameter("authpn", headerInfoDTO.getEntry().getAuthPN())
-                .addQueryParameter("authpt", headerInfoDTO.getEntry().getAuthPT())
-                .addQueryParameter("api_version", headerInfoDTO.getEntry().getApiVersion())
-                .addQueryParameter("region", "colombia")
-                .addQueryParameter("HKS", headerInfoDTO.getHKS())
+                .addQueryParameter(AUTH_PN, headerInfoDTO.getEntry().getAuthPN())
+                .addQueryParameter(AUTH_PT, headerInfoDTO.getEntry().getAuthPT())
+                .addQueryParameter(API_VERSION, headerInfoDTO.getEntry().getApiVersion())
+                .addQueryParameter(REGION, COLOMBIA)
+                .addQueryParameter(HKS, headerInfoDTO.getHKS())
                 .build();
         // Request customization: add request headers
         Request.Builder builder = original.newBuilder()
