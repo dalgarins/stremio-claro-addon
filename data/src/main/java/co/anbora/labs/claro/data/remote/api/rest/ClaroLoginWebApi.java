@@ -5,7 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface ClaroMFWKWebApi {
+public interface ClaroLoginWebApi {
 
     @GET("/services/user/login")
     Call<LoginDTO> login(@Query(value = "username", encoded = true) String userName,

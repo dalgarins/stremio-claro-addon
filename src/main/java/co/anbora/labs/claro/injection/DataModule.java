@@ -1,7 +1,7 @@
 package co.anbora.labs.claro.injection;
 
 import co.anbora.labs.claro.data.remote.ClaroVideoRepositoryImpl;
-import co.anbora.labs.claro.data.remote.api.rest.ClaroMFWKWebApi;
+import co.anbora.labs.claro.data.remote.api.rest.ClaroLoginWebApi;
 import co.anbora.labs.claro.data.remote.mapper.LoginDTOMapper;
 import co.anbora.labs.claro.data.repository.dao.token.TokenDao;
 import co.anbora.labs.claro.data.repository.mapper.LoginVOMapper;
@@ -31,7 +31,7 @@ public class DataModule {
     IClaroVideoRepository provideRemoteRepository(Credential credential,
                                                   LoginDTOMapper dbTokenMapper,
                                                   LoginVOMapper tokenMapper,
-                                                  ClaroMFWKWebApi loginApi,
+                                                  ClaroLoginWebApi loginApi,
                                                   TokenDao tokenDao) {
         return new ClaroVideoRepositoryImpl(credential, dbTokenMapper, tokenMapper, loginApi, tokenDao);
     }

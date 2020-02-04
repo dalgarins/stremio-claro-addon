@@ -1,6 +1,6 @@
 package co.anbora.labs.claro.data.remote;
 
-import co.anbora.labs.claro.data.remote.api.rest.ClaroMFWKWebApi;
+import co.anbora.labs.claro.data.remote.api.rest.ClaroLoginWebApi;
 import co.anbora.labs.claro.data.remote.model.login.LoginDTO;
 import co.anbora.labs.claro.data.repository.dao.token.TokenDao;
 import co.anbora.labs.claro.data.repository.model.LoginTokenVO;
@@ -17,7 +17,7 @@ import java.util.function.Function;
 public class ClaroVideoRepositoryImpl implements IClaroVideoRepository {
 
     private Credential claroCredential;
-    private ClaroMFWKWebApi claroWebApi;
+    private ClaroLoginWebApi claroWebApi;
     private Function<LoginDTO, LoginTokenVO> dbTokenMapper;
     private Function<LoginTokenVO, LoginToken> tokenMapper;
     private TokenDao tokenDao;
@@ -25,7 +25,7 @@ public class ClaroVideoRepositoryImpl implements IClaroVideoRepository {
     public ClaroVideoRepositoryImpl(Credential claroCredential,
                                     Function<LoginDTO, LoginTokenVO> dbTokenMapper,
                                     Function<LoginTokenVO, LoginToken> tokenMapper,
-                                    ClaroMFWKWebApi claroWebApi,
+                                    ClaroLoginWebApi claroWebApi,
                                     TokenDao tokenDao) {
         this.claroCredential = claroCredential;
         this.dbTokenMapper = dbTokenMapper;

@@ -3,7 +3,7 @@ package co.anbora.labs.claro.injection;
 import co.anbora.labs.claro.data.remote.api.interceptors.AuthInterceptor;
 import co.anbora.labs.claro.data.remote.api.rest.ClaroAPAWebApi;
 import co.anbora.labs.claro.data.remote.api.rest.ClaroColombiaConfigApi;
-import co.anbora.labs.claro.data.remote.api.rest.ClaroMFWKWebApi;
+import co.anbora.labs.claro.data.remote.api.rest.ClaroLoginWebApi;
 import co.anbora.labs.claro.injection.qualifiers.Auth;
 import co.anbora.labs.claro.injection.qualifiers.ConfigApi;
 import co.anbora.labs.claro.injection.qualifiers.WebApi;
@@ -61,8 +61,8 @@ public class NetworkModule {
 
     @Bean
     @Singleton
-    ClaroMFWKWebApi provideClaroWebApi(@Auth Retrofit retrofit) {
-        return retrofit.create(ClaroMFWKWebApi.class);
+    ClaroLoginWebApi provideClaroLoginWebApi(@Auth Retrofit retrofit) {
+        return retrofit.create(ClaroLoginWebApi.class);
     }
 
     @Bean
