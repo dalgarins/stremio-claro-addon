@@ -1,17 +1,17 @@
-package co.anbora.labs.claro.data.remote.model.login;
+package co.anbora.labs.claro.data.remote.model.category;
 
 import co.anbora.labs.claro.data.remote.model.requests.EntryRequestDTO;
-import co.anbora.labs.claro.data.remote.model.responses.ResponseLoginDTO;
+import co.anbora.labs.claro.data.remote.model.responses.ResponseCategoryDTO;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
-public class LoginDTO {
+public class CategoryDTO {
 
     @SerializedName("entry")
     private EntryRequestDTO entry;
 
     @SerializedName("response")
-    private ResponseLoginDTO response;
+    private ResponseCategoryDTO response;
 
 }

@@ -1,4 +1,4 @@
-package co.anbora.labs.claro.data.remote.model.requests;
+package co.anbora.labs.claro.data.remote.model.responses;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
