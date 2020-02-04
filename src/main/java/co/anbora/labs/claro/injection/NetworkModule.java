@@ -1,6 +1,6 @@
 package co.anbora.labs.claro.injection;
 
-import co.anbora.labs.claro.data.remote.api.interceptors.AuthInterceptor;
+import co.anbora.labs.claro.data.remote.api.interceptors.AuthenticationInterceptor;
 import co.anbora.labs.claro.data.remote.api.rest.ClaroAPAWebApi;
 import co.anbora.labs.claro.data.remote.api.rest.ClaroColombiaConfigApi;
 import co.anbora.labs.claro.data.remote.api.rest.ClaroLoginWebApi;
@@ -68,7 +68,7 @@ public class NetworkModule {
     @Bean
     @Auth
     @Singleton
-    Retrofit provideRetrofitWithAuth(@Property(name = "claro.url_mfwk_api") String urlMFWK, AuthInterceptor authInterceptor) {
+    Retrofit provideRetrofitWithAuth(@Property(name = "claro.url_mfwk_api") String urlMFWK, AuthenticationInterceptor authInterceptor) {
         OkHttpClient okHttpClient = getUnsafeOkHttpClient()
                 .newBuilder()
                 .addInterceptor(authInterceptor)
@@ -83,8 +83,8 @@ public class NetworkModule {
 
     @Bean
     @Singleton
-    AuthInterceptor provideAuthInterceptor(ClaroColombiaConfigApi colombiaConfigApi, ClaroAPAWebApi apaWebApi) {
-        return new AuthInterceptor(colombiaConfigApi, apaWebApi);
+    AuthenticationInterceptor provideAuthInterceptor(ClaroColombiaConfigApi colombiaConfigApi, ClaroAPAWebApi apaWebApi) {
+        return new AuthenticationInterceptor(colombiaConfigApi, apaWebApi);
     }
 
 }

@@ -14,12 +14,12 @@ import okhttp3.Response;
 import java.io.IOException;
 import java.util.Optional;
 
-public class AuthInterceptor implements Interceptor {
+public class AuthenticationInterceptor implements Interceptor {
 
     private ClaroColombiaConfigApi claroColombiaConfigApi;
     private ClaroAPAWebApi webApi;
 
-    public AuthInterceptor(ClaroColombiaConfigApi colombiaConfigApi, ClaroAPAWebApi webApi) {
+    public AuthenticationInterceptor(ClaroColombiaConfigApi colombiaConfigApi, ClaroAPAWebApi webApi) {
         this.claroColombiaConfigApi = colombiaConfigApi;
         this.webApi = webApi;
     }
