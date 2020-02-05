@@ -17,7 +17,7 @@ public class LoginDTOMapper implements Function<LoginDTO, LoginTokenVO> {
                 loginDTO.getResponse().getUserSession(),
                 loginDTO.getEntry().getAuthPN(),
                 loginDTO.getEntry().getAuthPT(),
-                loginDTO.getEntry().getApiVersion(),
-                loginDTO.getEntry().getHKS());
+                loginDTO.getEntry().getHKS(),
+                loginDTO.getEntry().getApiVersion());
     }
 }
