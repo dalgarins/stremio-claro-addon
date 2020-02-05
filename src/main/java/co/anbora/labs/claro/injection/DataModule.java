@@ -4,6 +4,7 @@ import co.anbora.labs.claro.data.remote.ClaroVideoRepositoryImpl;
 import co.anbora.labs.claro.data.remote.api.rest.ClaroLoginWebApi;
 import co.anbora.labs.claro.data.remote.api.rest.ClaroVideoApi;
 import co.anbora.labs.claro.data.remote.managers.CategoryManager;
+import co.anbora.labs.claro.data.remote.managers.LoginManager;
 import co.anbora.labs.claro.data.remote.mapper.CategoryDTOtoListMapper;
 import co.anbora.labs.claro.data.remote.mapper.CategoryVideoDTOtoVOMapper;
 import co.anbora.labs.claro.data.remote.mapper.ListCategoryVideoDTOtoVOMapper;
@@ -36,14 +37,18 @@ public class DataModule {
     }
 
     @Bean
-    IClaroVideoRepository provideRemoteRepository(Credential credential,
-                                                  LoginDTOMapper dbTokenMapper,
-                                                  LoginVOMapper tokenMapper,
-                                                  ClaroLoginWebApi loginApi,
-                                                  TokenDao tokenDao,
+    LoginManager provideLoginManager(Credential credential,
+                                     LoginDTOMapper dbTokenMapper,
+                                     LoginVOMapper tokenMapper,
+                                     ClaroLoginWebApi loginApi,
+                                     TokenDao tokenDao) {
+        return new LoginManager(credential, dbTokenMapper, tokenMapper, loginApi, tokenDao);
+    }
+
+    @Bean
+    IClaroVideoRepository provideRemoteRepository(LoginManager loginManager,
                                                   CategoryManager categoryManager) {
-        return new ClaroVideoRepositoryImpl(credential, dbTokenMapper,
-                tokenMapper, loginApi, tokenDao, categoryManager);
+        return new ClaroVideoRepositoryImpl(loginManager, categoryManager);
     }
 
     @Bean
