@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS categorias;
+DROP TABLE IF EXISTS categories;
 
-CREATE TABLE categorias (
+CREATE TABLE categories (
     filter_id VARCHAR(255)             PRIMARY KEY NOT NULL,
     from_ VARCHAR(255)                 NOT NULL,
     quantity VARCHAR(255)              NOT NULL,
