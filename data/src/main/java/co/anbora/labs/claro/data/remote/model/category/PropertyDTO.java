@@ -21,4 +21,8 @@ public class PropertyDTO {
     @SerializedName("byuser")
     private String byUser;
 
+    public boolean hasValidUrl() {
+        return url != null;
+    }
+
 }

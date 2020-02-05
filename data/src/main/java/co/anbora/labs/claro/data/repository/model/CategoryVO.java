@@ -15,4 +15,8 @@ public class CategoryVO {
     private String orderId;
     private String region;
 
+    public boolean hasValidFilterId() {
+        return filterId != null && !filterId.isEmpty();
+    }
+
 }

@@ -1,11 +1,15 @@
 package co.anbora.labs.claro.injection;
 
 import co.anbora.labs.claro.data.remote.api.interceptors.AuthenticationInterceptor;
+import co.anbora.labs.claro.data.remote.api.interceptors.AuthorizationInterceptor;
 import co.anbora.labs.claro.data.remote.api.rest.ClaroAPAWebApi;
 import co.anbora.labs.claro.data.remote.api.rest.ClaroColombiaConfigApi;
 import co.anbora.labs.claro.data.remote.api.rest.ClaroLoginWebApi;
+import co.anbora.labs.claro.data.remote.api.rest.ClaroVideoApi;
+import co.anbora.labs.claro.data.repository.dao.token.TokenDao;
 import co.anbora.labs.claro.injection.qualifiers.Auth;
 import co.anbora.labs.claro.injection.qualifiers.ConfigApi;
+import co.anbora.labs.claro.injection.qualifiers.VideoApi;
 import co.anbora.labs.claro.injection.qualifiers.WebApi;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
@@ -85,6 +89,34 @@ public class NetworkModule {
     @Singleton
     AuthenticationInterceptor provideAuthInterceptor(ClaroColombiaConfigApi colombiaConfigApi, ClaroAPAWebApi apaWebApi) {
         return new AuthenticationInterceptor(colombiaConfigApi, apaWebApi);
+    }
+
+    @Bean
+    @Singleton
+    AuthorizationInterceptor provideAuthorizationInterceptor(TokenDao tokenDao) {
+        return new AuthorizationInterceptor(tokenDao);
+    }
+
+    @Bean
+    @Singleton
+    ClaroVideoApi provideClaroVideoApi(@VideoApi Retrofit retrofit) {
+        return retrofit.create(ClaroVideoApi.class);
+    }
+
+    @Bean
+    @VideoApi
+    @Singleton
+    Retrofit provideRetrofitWithAuth(@Property(name = "claro.url_mfwk_api") String urlMFWK, AuthorizationInterceptor authorizationInterceptor) {
+        OkHttpClient okHttpClient = getUnsafeOkHttpClient()
+                .newBuilder()
+                .addInterceptor(authorizationInterceptor)
+                .build();
+
+        return new Retrofit.Builder()
+                .baseUrl(urlMFWK)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
     }
 
 }

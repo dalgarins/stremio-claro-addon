@@ -1,5 +1,7 @@
 package co.anbora.labs.claro.injection;
 
+import co.anbora.labs.claro.data.repository.dao.category.CategoryDao;
+import co.anbora.labs.claro.data.repository.dao.category.CategoryDaoImpl;
 import co.anbora.labs.claro.data.repository.dao.token.TokenDao;
 import co.anbora.labs.claro.data.repository.dao.token.TokenDaoImpl;
 import io.micronaut.context.annotation.Bean;
@@ -38,6 +40,12 @@ public class MybatisFactory {
     @Singleton
     TokenDao provideTokenDao(SqlSessionFactory sessionFactory) {
         return new TokenDaoImpl(sessionFactory);
+    }
+
+    @Bean
+    @Singleton
+    CategoryDao provideCategoryDao(SqlSessionFactory sessionFactory) {
+        return new CategoryDaoImpl(sessionFactory);
     }
 
 }

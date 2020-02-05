@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class ComponentsDTO {
+public class  ComponentsDTO {
 
     @SerializedName("component")
     private List<ComponentDTO> components = new ArrayList<>();

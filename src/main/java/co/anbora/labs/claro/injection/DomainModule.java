@@ -2,6 +2,7 @@ package co.anbora.labs.claro.injection;
 
 import co.anbora.labs.claro.domain.model.claro.Credential;
 import co.anbora.labs.claro.domain.repository.IClaroVideoRepository;
+import co.anbora.labs.claro.domain.usecase.category.GetCategoriesUseCase;
 import co.anbora.labs.claro.domain.usecase.login.GetCookiesUseCase;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
@@ -23,6 +24,12 @@ public class DomainModule {
     @Singleton
     GetCookiesUseCase provideGetCookiesUseCase(IClaroVideoRepository claroVideoRepository) {
         return new GetCookiesUseCase(claroVideoRepository);
+    }
+
+    @Bean
+    @Singleton
+    GetCategoriesUseCase provideGetCategoriesUseCase(IClaroVideoRepository claroVideoRepository) {
+        return new GetCategoriesUseCase(claroVideoRepository);
     }
 
 }

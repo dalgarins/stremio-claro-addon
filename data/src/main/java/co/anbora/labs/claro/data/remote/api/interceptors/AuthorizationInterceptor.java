@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import static co.anbora.labs.claro.domain.constants.AuthConstants.*;
+import static co.anbora.labs.claro.domain.constants.DeviceConstants.*;
 
 public class AuthorizationInterceptor implements Interceptor {
 
@@ -45,6 +46,9 @@ public class AuthorizationInterceptor implements Interceptor {
                 .addQueryParameter(API_VERSION, loginToken.getApiVersion())
                 .addQueryParameter(REGION, COLOMBIA)
                 .addQueryParameter(HKS, loginToken.getHKS())
+                .addQueryParameter(DEVICE_ID, WEB)
+                .addQueryParameter(DEVICE_CATEGORY, WEB)
+                .addQueryParameter(DEVICE_MODEL, WEB)
                 .build();
         // Request customization: add request headers
         Request.Builder builder = original.newBuilder()
