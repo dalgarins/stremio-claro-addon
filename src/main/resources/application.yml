@@ -8,6 +8,7 @@ claro:
   url_mfwk_api: "https://mfwkweb-api.clarovideo.net"
   user: "${CLARO_USER:test}"
   password: "${CLARO_PASSWORD:test}"
+  node_movies: "sapeliculas"
 ---
 datasources:
   default:
