@@ -1,18 +1,16 @@
-package co.anbora.labs.claro.data.repository.model;
+package co.anbora.labs.claro.domain.model.claro;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
-public class VideoVO {
+@Builder
+public class Video {
 
     private String id;
     private String title;
-    private String originalTitle;
     private String description;
     private String urlImageMedium;
-    private String urlImageLarge;
     private String duration;
     private String year;
 

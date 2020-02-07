@@ -4,6 +4,8 @@ import co.anbora.labs.claro.data.repository.dao.category.CategoryDao;
 import co.anbora.labs.claro.data.repository.dao.category.CategoryDaoImpl;
 import co.anbora.labs.claro.data.repository.dao.token.TokenDao;
 import co.anbora.labs.claro.data.repository.dao.token.TokenDaoImpl;
+import co.anbora.labs.claro.data.repository.dao.video.VideoDao;
+import co.anbora.labs.claro.data.repository.dao.video.VideoDaoImpl;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 import org.apache.ibatis.mapping.Environment;
@@ -46,6 +48,12 @@ public class MybatisFactory {
     @Singleton
     CategoryDao provideCategoryDao(SqlSessionFactory sessionFactory) {
         return new CategoryDaoImpl(sessionFactory);
+    }
+
+    @Bean
+    @Singleton
+    VideoDao provideVideoDao(SqlSessionFactory sessionFactory) {
+        return new VideoDaoImpl(sessionFactory);
     }
 
 }

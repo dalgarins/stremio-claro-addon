@@ -5,15 +5,15 @@ import co.anbora.labs.claro.data.remote.api.rest.ClaroLoginWebApi;
 import co.anbora.labs.claro.data.remote.api.rest.ClaroVideoApi;
 import co.anbora.labs.claro.data.remote.managers.CategoryManager;
 import co.anbora.labs.claro.data.remote.managers.LoginManager;
-import co.anbora.labs.claro.data.remote.mapper.CategoryDTOtoListMapper;
-import co.anbora.labs.claro.data.remote.mapper.CategoryVideoDTOtoVOMapper;
-import co.anbora.labs.claro.data.remote.mapper.ListCategoryVideoDTOtoVOMapper;
-import co.anbora.labs.claro.data.remote.mapper.LoginDTOMapper;
+import co.anbora.labs.claro.data.remote.managers.VideoManager;
+import co.anbora.labs.claro.data.remote.mapper.*;
 import co.anbora.labs.claro.data.repository.dao.category.CategoryDao;
 import co.anbora.labs.claro.data.repository.dao.token.TokenDao;
+import co.anbora.labs.claro.data.repository.dao.video.VideoDao;
 import co.anbora.labs.claro.data.repository.mapper.CategoryVOMapper;
 import co.anbora.labs.claro.data.repository.mapper.ListCategoryVOMapper;
 import co.anbora.labs.claro.data.repository.mapper.LoginVOMapper;
+import co.anbora.labs.claro.data.repository.mapper.VideoVOMapper;
 import co.anbora.labs.claro.domain.model.claro.Credential;
 import co.anbora.labs.claro.domain.repository.IClaroVideoRepository;
 import io.micronaut.context.annotation.Bean;
@@ -47,8 +47,9 @@ public class DataModule {
 
     @Bean
     IClaroVideoRepository provideRemoteRepository(LoginManager loginManager,
-                                                  CategoryManager categoryManager) {
-        return new ClaroVideoRepositoryImpl(loginManager, categoryManager);
+                                                  CategoryManager categoryManager,
+                                                  VideoManager videoManager) {
+        return new ClaroVideoRepositoryImpl(loginManager, categoryManager, videoManager);
     }
 
     @Bean
@@ -89,6 +90,38 @@ public class DataModule {
                                            CategoryDao categoryDao) {
         return new CategoryManager(categoryDTOtoListMapper, categoryListVideoDTOtoVOMapper,
                 listCategoryVOMapper, claroVideoApi, categoryDao);
+    }
+
+    @Bean
+    @Singleton
+    VideoDTOtoVOMapper provideVideoDTOtoVOMapper() {
+        return new VideoDTOtoVOMapper();
+    }
+
+    @Bean
+    @Singleton
+    VideosDTOtoListMapper provideVideosDTOtoListMapper() {
+        return new VideosDTOtoListMapper();
+    }
+
+    @Bean
+    @Singleton
+    VideoVOMapper proVideoVOMapper() {
+        return new VideoVOMapper();
+    }
+
+    @Bean
+    VideoManager provideVideoManager(VideosDTOtoListMapper videosDTOtoListMapper,
+                                     VideoDTOtoVOMapper videoDTOtoVOMapper,
+                                     VideoVOMapper videoVOMapper,
+                                     ClaroVideoApi claroVideoApi,
+                                     CategoryDao categoryDao,
+                                     VideoDao videoDao) {
+        return new VideoManager(videosDTOtoListMapper, videoDTOtoVOMapper,
+                videoVOMapper,
+                claroVideoApi,
+                categoryDao,
+                videoDao);
     }
 
 
