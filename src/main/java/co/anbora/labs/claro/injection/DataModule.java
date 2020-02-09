@@ -7,6 +7,7 @@ import co.anbora.labs.claro.data.remote.managers.CategoryManager;
 import co.anbora.labs.claro.data.remote.managers.LoginManager;
 import co.anbora.labs.claro.data.remote.managers.VideoManager;
 import co.anbora.labs.claro.data.remote.mapper.*;
+import co.anbora.labs.claro.data.repository.AddOnRepositoryImpl;
 import co.anbora.labs.claro.data.repository.dao.category.CategoryDao;
 import co.anbora.labs.claro.data.repository.dao.token.TokenDao;
 import co.anbora.labs.claro.data.repository.dao.video.VideoDao;
@@ -15,6 +16,7 @@ import co.anbora.labs.claro.data.repository.mapper.ListCategoryVOMapper;
 import co.anbora.labs.claro.data.repository.mapper.LoginVOMapper;
 import co.anbora.labs.claro.data.repository.mapper.VideoVOMapper;
 import co.anbora.labs.claro.domain.model.claro.Credential;
+import co.anbora.labs.claro.domain.repository.IAddOnRepository;
 import co.anbora.labs.claro.domain.repository.IClaroVideoRepository;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
@@ -50,6 +52,14 @@ public class DataModule {
                                                   CategoryManager categoryManager,
                                                   VideoManager videoManager) {
         return new ClaroVideoRepositoryImpl(loginManager, categoryManager, videoManager);
+    }
+
+    @Bean
+    IAddOnRepository provideLocalRepository(TokenDao tokenDao,
+                                            LoginVOMapper tokenMapper,
+                                            VideoDao videoDao,
+                                            VideoVOMapper videoVOMapper) {
+        return new AddOnRepositoryImpl(tokenDao, tokenMapper, videoDao, videoVOMapper);
     }
 
     @Bean

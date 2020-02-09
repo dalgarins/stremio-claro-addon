@@ -1,7 +1,6 @@
 package co.anbora.labs.claro.data.repository.dao.video;
 
 import co.anbora.labs.claro.data.repository.model.VideoVO;
-import co.anbora.labs.claro.domain.model.claro.Video;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -19,7 +18,7 @@ public interface VideoDao {
     void insert(List<VideoVO> videos);
 
     @Select("select * from videos where video_id = #{videoId}")
-    Video findById(@Param("videoId") String id);
+    VideoVO findById(@Param("videoId") String id);
 
     @Select("select * from videos ")
     List<VideoVO> findAll();

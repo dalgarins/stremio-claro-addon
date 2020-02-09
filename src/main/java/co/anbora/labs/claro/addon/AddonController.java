@@ -2,9 +2,11 @@ package co.anbora.labs.claro.addon;
 
 import co.anbora.labs.claro.domain.model.claro.CategoryVideo;
 import co.anbora.labs.claro.domain.model.claro.LoginToken;
+import co.anbora.labs.claro.domain.model.claro.Video;
 import co.anbora.labs.claro.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.claro.domain.usecase.category.GetCategoriesUseCase;
 import co.anbora.labs.claro.domain.usecase.login.GetCookiesUseCase;
+import co.anbora.labs.claro.domain.usecase.videos.GetVideosUseCase;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
@@ -22,6 +24,8 @@ public class AddonController {
     GetCookiesUseCase getCookiesUseCase;
     @Inject
     GetCategoriesUseCase getCategoriesUseCase;
+    @Inject
+    GetVideosUseCase getVideosUseCase;
 
     @Get("/")
     public HttpStatus index() {
@@ -40,5 +44,12 @@ public class AddonController {
         return useCaseExecutor.execute(getCategoriesUseCase,
                 new GetCategoriesUseCase.Request("sapeliculas"),
                 GetCategoriesUseCase.Response::getCategoryVideos);
+    }
+
+    @Get("/videos")
+    public CompletableFuture<List<Video>> videos() {
+        return useCaseExecutor.execute(getVideosUseCase,
+                new GetVideosUseCase.Request(),
+                GetVideosUseCase.Response::getVideos);
     }
 }

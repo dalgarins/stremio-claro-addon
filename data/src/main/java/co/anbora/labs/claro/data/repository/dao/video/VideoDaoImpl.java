@@ -1,7 +1,6 @@
 package co.anbora.labs.claro.data.repository.dao.video;
 
 import co.anbora.labs.claro.data.repository.model.VideoVO;
-import co.anbora.labs.claro.domain.model.claro.Video;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -34,7 +33,7 @@ public class VideoDaoImpl implements VideoDao {
     }
 
     @Override
-    public Video findById(String id) {
+    public VideoVO findById(String id) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             return getVideoDao(session).findById(id);
         }
