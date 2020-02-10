@@ -16,6 +16,7 @@ public class VideoVOMapper implements Function<VideoVO, Video> {
                     .title(videoVO.getTitle())
                     .duration(videoVO.getDuration())
                     .urlImageMedium(videoVO.getUrlImageMedium())
+                    .released(videoVO.getReleased())
                     .year(videoVO.getYear())
                     .build();
         }

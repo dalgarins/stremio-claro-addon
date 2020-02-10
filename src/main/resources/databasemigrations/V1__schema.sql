@@ -20,5 +20,6 @@ CREATE TABLE videos (
   image_medium VARCHAR(4096)         NOT NULL,
   image_large VARCHAR(255)           NOT NULL,
   duration VARCHAR(255)              NOT NULL,
+  released VARCHAR(255)              NOT NULL,
   year_ VARCHAR(255)                 NOT NULL
 );

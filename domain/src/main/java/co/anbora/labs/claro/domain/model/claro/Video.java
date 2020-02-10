@@ -12,6 +12,7 @@ public class Video {
     private String description;
     private String urlImageMedium;
     private String duration;
+    private String released;
     private String year;
 
 }

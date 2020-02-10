@@ -14,6 +14,7 @@ public class VideoVO {
     private String urlImageMedium;
     private String urlImageLarge;
     private String duration;
+    private String released;
     private String year;
 
 }

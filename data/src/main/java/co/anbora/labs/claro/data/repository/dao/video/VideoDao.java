@@ -12,7 +12,7 @@ public interface VideoDao {
     @Insert("merge into videos key (video_id) "
             + "values(#{video.id}, #{video.title}, #{video.originalTitle}, "
             + "#{video.description}, #{video.urlImageMedium}, #{video.urlImageLarge}, "
-            + "#{video.duration}, #{video.year})")
+            + "#{video.duration}, #{video.released}, #{video.year})")
     void insert(@Param("video") VideoVO video);
 
     void insert(List<VideoVO> videos);

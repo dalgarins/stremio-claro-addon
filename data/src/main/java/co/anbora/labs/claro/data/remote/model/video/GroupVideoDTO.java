@@ -24,6 +24,8 @@ public class GroupVideoDTO {
     private String largeImage;
     @SerializedName("duration")
     private String duration;
+    @SerializedName("date")
+    private String released;
     @SerializedName("year")
     private String year;
 

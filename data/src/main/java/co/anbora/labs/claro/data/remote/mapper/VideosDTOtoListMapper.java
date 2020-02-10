@@ -36,6 +36,7 @@ public class VideosDTOtoListMapper implements Function<VideosDTO, List<VideoDTO>
                 groupVideoDTO.getMediumImage(),
                 groupVideoDTO.getLargeImage(),
                 groupVideoDTO.getDuration(),
+                groupVideoDTO.getReleased(),
                 groupVideoDTO.getYear()
         );
     }

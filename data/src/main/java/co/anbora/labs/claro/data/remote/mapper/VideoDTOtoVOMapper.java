@@ -18,6 +18,7 @@ public class VideoDTOtoVOMapper implements Function<VideoDTO, VideoVO> {
                 videoDTO.getUrlImageMedium(),
                 videoDTO.getUrlImageLarge(),
                 videoDTO.getDuration(),
+                videoDTO.getReleased(),
                 videoDTO.getYear()
             );
         }
