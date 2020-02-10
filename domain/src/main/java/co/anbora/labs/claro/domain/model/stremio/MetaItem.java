@@ -9,8 +9,8 @@ public class MetaItem {
 
     protected String id;
     protected String type;
-    protected String title;
-    protected String overview;
-    protected String released;
+    protected String name;
+    protected String poster;
+    protected String description;
 
 }
