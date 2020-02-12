@@ -71,8 +71,8 @@ public class DomainModule {
 
     @Bean
     @Singleton
-    GetStreamByIdUseCase provideGetStreamByIdUseCase() {
-        return new GetStreamByIdUseCase();
+    GetStreamByIdUseCase provideGetStreamByIdUseCase(IClaroVideoRepository repository) {
+        return new GetStreamByIdUseCase(repository);
     }
 
 }
