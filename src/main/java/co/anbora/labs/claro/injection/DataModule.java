@@ -121,17 +121,26 @@ public class DataModule {
     }
 
     @Bean
+    @Singleton
+    MediaVideoMapper provideMediaVideoMapper() {
+        return new MediaVideoMapper();
+    }
+
+    @Bean
     VideoManager provideVideoManager(VideosDTOtoListMapper videosDTOtoListMapper,
                                      VideoDTOtoVOMapper videoDTOtoVOMapper,
                                      VideoVOMapper videoVOMapper,
+                                     MediaVideoMapper mediaVideoMapper,
                                      ClaroVideoApi claroVideoApi,
                                      CategoryDao categoryDao,
-                                     VideoDao videoDao) {
+                                     VideoDao videoDao,
+                                     TokenDao tokenDao) {
         return new VideoManager(videosDTOtoListMapper, videoDTOtoVOMapper,
                 videoVOMapper,
+                mediaVideoMapper,
                 claroVideoApi,
                 categoryDao,
-                videoDao);
+                videoDao, tokenDao);
     }
 
 

@@ -5,6 +5,7 @@ import co.anbora.labs.claro.data.remote.managers.LoginManager;
 import co.anbora.labs.claro.data.remote.managers.VideoManager;
 import co.anbora.labs.claro.domain.model.claro.CategoryVideo;
 import co.anbora.labs.claro.domain.model.claro.LoginToken;
+import co.anbora.labs.claro.domain.model.claro.StreamMedia;
 import co.anbora.labs.claro.domain.model.claro.Video;
 import co.anbora.labs.claro.domain.repository.IClaroVideoRepository;
 
@@ -37,6 +38,11 @@ public class ClaroVideoRepositoryImpl implements IClaroVideoRepository {
     @Override
     public List<Video> videos() {
         return videoManager.videos();
+    }
+
+    @Override
+    public StreamMedia streamMedia(String videoId) {
+        return videoManager.streamMediaById(videoId);
     }
 
 
