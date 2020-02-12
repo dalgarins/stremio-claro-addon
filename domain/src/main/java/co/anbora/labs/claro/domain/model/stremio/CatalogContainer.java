@@ -1,5 +1,6 @@
 package co.anbora.labs.claro.domain.model.stremio;
 import co.anbora.labs.claro.domain.model.Movie;
+import co.anbora.labs.claro.domain.model.claro.Video;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +15,8 @@ public class CatalogContainer {
         return metas;
     }
 
-    public void addMovie(String id, String name, String poster, String description) {
-        metas.add(new Movie(id, name, poster, description));
+    public void addMovie(Video video) {
+        metas.add(new Movie(video.getId(), video.getTitle(),
+                video.getUrlImageMedium(), video.getDescription()));
     }
 }
