@@ -1,18 +1,17 @@
 package co.anbora.labs.claro.addon;
 
-import co.anbora.labs.claro.domain.model.claro.CategoryVideo;
-import co.anbora.labs.claro.domain.model.claro.LoginToken;
-import co.anbora.labs.claro.domain.model.claro.Video;
+import co.anbora.labs.claro.domain.model.stremio.CatalogContainer;
+import co.anbora.labs.claro.domain.model.stremio.Manifest;
+import co.anbora.labs.claro.domain.model.stremio.Stream;
 import co.anbora.labs.claro.domain.usecase.UseCaseExecutor;
-import co.anbora.labs.claro.domain.usecase.category.GetCategoriesUseCase;
-import co.anbora.labs.claro.domain.usecase.login.GetCookiesUseCase;
-import co.anbora.labs.claro.domain.usecase.videos.GetVideosUseCase;
+import co.anbora.labs.claro.domain.usecase.stremio.GetAllCatalogUseCase;
+import co.anbora.labs.claro.domain.usecase.stremio.GetCatalogByExtraUseCase;
+import co.anbora.labs.claro.domain.usecase.stremio.GetStreamByIdUseCase;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 
 import javax.inject.Inject;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Controller()
@@ -21,35 +20,43 @@ public class AddonController {
     @Inject
     UseCaseExecutor useCaseExecutor;
     @Inject
-    GetCookiesUseCase getCookiesUseCase;
+    GetAllCatalogUseCase getAllCatalogUseCase;
     @Inject
-    GetCategoriesUseCase getCategoriesUseCase;
+    GetCatalogByExtraUseCase getCatalogByExtraUseCase;
     @Inject
-    GetVideosUseCase getVideosUseCase;
+    GetStreamByIdUseCase getStreamByIdUseCase;
+    @Inject
+    Manifest manifest;
 
     @Get("/")
     public HttpStatus index() {
         return HttpStatus.OK;
     }
 
-    @Get("/cookie")
-    public CompletableFuture<LoginToken> cookie() {
-        return useCaseExecutor.execute(getCookiesUseCase,
-                new GetCookiesUseCase.Request(),
-                GetCookiesUseCase.Response::getLoginToken);
+    @Get("/manifest.json")
+    public CompletableFuture<Manifest> manifest() {
+        return CompletableFuture.supplyAsync(() -> manifest);
     }
 
-    @Get("/categories")
-    public CompletableFuture<List<CategoryVideo>> categories() {
-        return useCaseExecutor.execute(getCategoriesUseCase,
-                new GetCategoriesUseCase.Request("sapeliculas"),
-                GetCategoriesUseCase.Response::getCategoryVideos);
+    @Get("/catalog/{type}/{id}.json")
+    public CompletableFuture<CatalogContainer> allVideos(String type, String id) {
+        return useCaseExecutor.execute(getAllCatalogUseCase,
+                new GetAllCatalogUseCase.Request(type, id),
+                GetAllCatalogUseCase.Response::getCatalogContainer
+        );
     }
 
-    @Get("/videos")
-    public CompletableFuture<List<Video>> videos() {
-        return useCaseExecutor.execute(getVideosUseCase,
-                new GetVideosUseCase.Request(),
-                GetVideosUseCase.Response::getVideos);
+    @Get("/catalog/{type}/{id}/{extra}.json")
+    public CompletableFuture<CatalogContainer> searchVideos(String type, String id, String extra) {
+        return useCaseExecutor.execute(getCatalogByExtraUseCase,
+                new GetCatalogByExtraUseCase.Request(type, id, extra),
+                GetCatalogByExtraUseCase.Response::getCatalogContainer);
+    }
+
+    @Get("/stream/{type}/{id}.json")
+    public CompletableFuture<Stream> stream(String type, String id) {
+        return useCaseExecutor.execute(getStreamByIdUseCase,
+                new GetStreamByIdUseCase.Request(type, id),
+                GetStreamByIdUseCase.Response::getStream);
     }
 }

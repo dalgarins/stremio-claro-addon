@@ -5,6 +5,9 @@ import co.anbora.labs.claro.domain.repository.IAddOnRepository;
 import co.anbora.labs.claro.domain.repository.IClaroVideoRepository;
 import co.anbora.labs.claro.domain.usecase.category.GetCategoriesUseCase;
 import co.anbora.labs.claro.domain.usecase.login.GetCookiesUseCase;
+import co.anbora.labs.claro.domain.usecase.stremio.GetAllCatalogUseCase;
+import co.anbora.labs.claro.domain.usecase.stremio.GetCatalogByExtraUseCase;
+import co.anbora.labs.claro.domain.usecase.stremio.GetStreamByIdUseCase;
 import co.anbora.labs.claro.domain.usecase.videos.GetVideoByIdUseCase;
 import co.anbora.labs.claro.domain.usecase.videos.GetVideosUseCase;
 import co.anbora.labs.claro.domain.usecase.videos.SyncRemoteVideosUseCase;
@@ -52,6 +55,24 @@ public class DomainModule {
     @Singleton
     SyncRemoteVideosUseCase provideSyncRemoteVideosUseCase(IClaroVideoRepository claroVideoRepository) {
         return new SyncRemoteVideosUseCase(claroVideoRepository);
+    }
+
+    @Bean
+    @Singleton
+    GetAllCatalogUseCase provideGetAllCatalogUseCase(IAddOnRepository addOnRepository) {
+        return new GetAllCatalogUseCase(addOnRepository);
+    }
+
+    @Bean
+    @Singleton
+    GetCatalogByExtraUseCase provideGetCatalogByExtraUseCase(IAddOnRepository addOnRepository) {
+        return new GetCatalogByExtraUseCase(addOnRepository);
+    }
+
+    @Bean
+    @Singleton
+    GetStreamByIdUseCase provideGetStreamByIdUseCase() {
+        return new GetStreamByIdUseCase();
     }
 
 }
